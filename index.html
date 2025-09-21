@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | SetembroAmarelo</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body style="width:100%; height:100%;">
+    <div id="unity-container" class="unity-desktop" style="width:100%; height:100%;">
+      <canvas id="unity-canvas" tabindex="-1" style="width:100%; height:100%;"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/SetembroAmarelo.loader.js";
+      var config =
+      {
+        dataUrl: buildUrl + "/SetembroAmarelo.data",
+        frameworkUrl: buildUrl + "/SetembroAmarelo.framework.js",
+        codeUrl: buildUrl + "/SetembroAmarelo.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Thurgh",
+        productName: "SetembroAmarelo",
+        productVersion: "1.0.0"
+      };
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) 
+      {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+      }
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () =>
+      {
+        createUnityInstance(canvas, config, (progress) =>
+        {
+          progressBarFull.style.width = 100 * progress + "%"; })
+          .then((unityInstance) =>
+          {
+            loadingBar.style.display = "none";
+          })
+          .catch((message) =>
+          {
+            alert(message);
+          });
+        };
+
+      document.body.appendChild(script);
+
+    </script>
+  </body>
+</html>
