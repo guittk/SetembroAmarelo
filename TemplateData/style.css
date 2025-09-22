@@ -21,13 +21,13 @@ body { padding: 0; margin: 0 }
     width: 154px;
     height: 130px;
     background: url('Icons/Heart.png') no-repeat center;
-    animation: heartbeat 1s infinite; /* Substitui rotate por heartbeat */
+    animation: heartbeat 3s infinite;
     transform-origin: center;
 }
 
 @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
-    25% { transform: scale(1.2); }
+    25% { transform: scale(1.1); }
     50% { transform: scale(1); }
-    75% { transform: scale(1.2); }
+    75% { transform: scale(1.1); }
 }
